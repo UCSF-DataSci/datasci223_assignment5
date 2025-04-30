@@ -6,16 +6,11 @@ This assignment focuses on applying classification techniques to synthetic healt
 
 1. **Data Loading and Preparation:** Handling basic data loading and preparing data for modeling.
 2. **Binary Classification:** Implementing and evaluating a simple classification model (Logistic Regression).
-3. **Model Evaluation:** Calculating and interpreting key classification metrics (Accuracy, Precision, Recall, F1-Score, Confusion Matrix, AUC).
+3. **Model Evaluation:** Calculating and interpreting key classification metrics.
 4. **Feature Engineering:** Extracting basic time-series features for classification.
 5. **Tree-Based Models:** Implementing and comparing Random Forest and XGBoost classifiers.
 6. **Handling Categorical Data:** Using One-Hot Encoding.
 7. **Handling Imbalanced Data:** Applying the SMOTE technique to address class imbalance.
-8. **Structured Workflow:** Following a structured approach using Jupyter Notebooks and version control (Git).
-
-## Background
-
-This assignment builds upon the concepts covered in Lecture 05, focusing on classification algorithms, evaluation techniques, and practical data preparation steps common in health data science. You will work with a synthetically generated dataset simulating patient health metrics.
 
 ## Data
 
@@ -36,13 +31,11 @@ A synthetic dataset named `synthetic_health_data.csv` will be provided (or gener
 
 This assignment is divided into three parts, each corresponding to a Jupyter Notebook:
 
-1. **`part1_introduction.ipynb`**: Focuses on loading data, basic exploration, training a Logistic Regression model, and evaluating its performance using various metrics.
-2. **`part2_feature_engineering.ipynb`**: Explores basic time-series feature extraction (using `heart_rate`), training Random Forest and XGBoost models, and comparing their performance.
-3. **`part3_data_preparation.ipynb`**: Deals with practical data preparation challenges, including handling categorical features (One-Hot Encoding) and addressing class imbalance using SMOTE.
+1. **`part1_introduction.ipynb`**: Focuses on loading data, basic exploration, training a Logistic Regression model, and evaluating its performance.
+2. **`part2_feature_engineering.ipynb`**: Explores basic time-series feature extraction (using `heart_rate`), training Random Forest and XGBoost models.
+3. **`part3_data_preparation.ipynb`**: Deals with handling categorical features (One-Hot Encoding) and addressing class imbalance using SMOTE.
 
-You will need to implement specific Python functions within these notebooks. These functions will be automatically graded.
-
-## Tasks
+## Simplified Tasks
 
 ### Part 0: Data Collection
 
@@ -50,54 +43,30 @@ You will need to implement specific Python functions within these notebooks. The
 
 ### Part 1: Introduction to Classification & Evaluation (`part1_introduction.ipynb`)
 
-1. **Implement `load_data(file_path)`:** Load the `synthetic_health_data.csv` file into a pandas DataFrame.
-2. **Implement `prepare_data_part1(df)`:** Select relevant features for initial modeling (e.g., `age`, `systolic_bp`, `diastolic_bp`, `glucose_level`, `bmi`) and the target (`disease_outcome`). Split the data into training and testing sets (e.g., 80% train, 20% test, use a fixed `random_state`). Handle any potential missing values simply (e.g., using median imputation). Return `X_train, X_test, y_train, y_test`.
-3. **Implement `train_logistic_regression(X_train, y_train)`:** Train a `sklearn.linear_model.LogisticRegression` model on the training data. Return the trained model.
-4. **Implement `calculate_evaluation_metrics(model, X_test, y_test)`:** Use the trained model to make predictions on the test set. Calculate and return a dictionary containing:
-    * `accuracy`: Accuracy score
-    * `precision`: Precision score
-    * `recall`: Recall score
-    * `f1`: F1 score
-    * `auc`: ROC AUC score
-    * `confusion_matrix`: Confusion matrix (as a NumPy array or list of lists)
-5. **Save Results:** Save the calculated metrics dictionary (excluding the confusion matrix for simplicity in the text file) to `results/results_part1.txt`. Each metric should be on a new line in the format `metric_name: value` (e.g., `accuracy: 0.85`). Ensure the `results/` directory exists (using the notebooks, not manually creating it) before writing to it.
-6. **Interpretation:** In the notebook markdown, briefly discuss the performance metrics, considering the potential impact of class imbalance (which will be addressed later).
+1. **Load Data:** Load the `synthetic_health_data.csv` file into a pandas DataFrame.
+2. **Prepare Data:** Select relevant features and the target. Split the data into training and testing sets. Handle any missing values.
+3. **Train Model:** Train a Logistic Regression model on the training data.
+4. **Evaluate Model:** Calculate accuracy, precision, recall, F1 score, AUC, and confusion matrix.
+5. **Save Results:** Save the metrics to `results/results_part1.txt`.
+6. **Interpret Results:** Implement a function `interpret_results(metrics)` that analyzes the model performance on imbalanced data. The function should return a dictionary with keys 'best_metric', 'worst_metric', and 'imbalance_impact_score' (a custom score from 0-1 indicating how much the class imbalance affected results).
 
 ### Part 2: Time Series Features & Tree-Based Models (`part2_feature_engineering.ipynb`)
 
-1. **Implement `extract_rolling_features(df, window_size)`:** Using the `heart_rate` column and `timestamp`, calculate rolling mean and rolling standard deviation features over a specified `window_size`. Ensure the output aligns with the original DataFrame index (handle NaNs introduced by rolling). Merge these features back into a copy of the original DataFrame (or the relevant subset). Return the DataFrame with added features. *Hint: You might need to sort by timestamp first.*
-2. **Implement `prepare_data_part2(df_with_features)`:** Select relevant features including the new rolling features and the target. Split into train/test sets as in Part 1. Handle missing values. Return `X_train, X_test, y_train, y_test`.
-3. **Implement `train_random_forest(X_train, y_train, n_estimators, max_depth, random_state)`:** Train a `sklearn.ensemble.RandomForestClassifier` model. Return the trained model.
-4. **Implement `train_xgboost(X_train, y_train, n_estimators, learning_rate, max_depth, random_state)`:** Train an `xgboost.XGBClassifier` model. Return the trained model.
-5. **Comparison & Save Results:** Calculate the ROC AUC score for both the Random Forest and XGBoost models on the test set. Save these two scores to `results/results_part2.txt` in the format:
-
-```
-rf_auc: [value]
-xgb_auc: [value]
-```
-
-Ensure the `results/` directory exists.
-6.  **Interpretation:** In the notebook markdown, briefly compare their performance based on AUC.
+1. **Extract Features:** Calculate rolling mean and standard deviation for heart rate.
+2. **Prepare Data:** Select features including the new rolling features and the target. Split into train/test sets.
+3. **Train Models:** Train Random Forest and XGBoost models.
+4. **Compare Models:** Calculate and compare AUC scores for both models.
+5. **Save Results:** Save the AUC scores to `results/results_part2.txt`.
 
 ### Part 3: Practical Data Preparation (`part3_data_preparation.ipynb`)
 
-1. **Implement `encode_categorical_features(df)`:** Use `sklearn.preprocessing.OneHotEncoder` to encode the `smoker_status` column. Make sure to handle potential unknown categories during transformation (e.g., if the test set had a category not seen in train). Return the DataFrame with the original categorical column replaced by the new binary columns. *Hint: Remember to fit the encoder only on the training data after splitting.*
-2. **Implement `prepare_data_part3(df_encoded)`:** Select features (including the one-hot encoded ones) and the target. Split into train/test sets. Handle missing values. Return `X_train, X_test, y_train, y_test`.
-3. **Implement `apply_smote(X_train, y_train, random_state)`:** Use `imblearn.over_sampling.SMOTE` to oversample the minority class *only on the training data*. Return the resampled `X_train_res, y_train_res`.
-4. **Retrain and Evaluate:** Retrain the Logistic Regression model (from Part 1) using the SMOTE-resampled training data (`X_train_res, y_train_res`). Evaluate this new model on the *original* (unbalanced) test set (`X_test_pt3, y_test_pt3`) using the `calculate_evaluation_metrics` function (you might need to import it or redefine it here).
-5. **Save Results:** Save the evaluation metrics dictionary from the SMOTE-trained model (excluding the confusion matrix) to `results/results_part3.txt` using the same `metric_name: value` format as Part 1. Ensure the `results/` directory exists.
-6. **Interpretation:** In the notebook markdown, compare the evaluation metrics (especially recall and F1-score) of the model trained on balanced data versus the model from Part 1 trained on imbalanced data. Discuss the effect of SMOTE.
+1. **Encode Categorical Features:** Use One-Hot Encoding for the `smoker_status` column.
+2. **Prepare Data:** Select features (including the one-hot encoded ones) and the target. Split into train/test sets.
+3. **Apply SMOTE:** Oversample the minority class in the training data.
+4. **Retrain and Evaluate:** Train a Logistic Regression model on the balanced data and evaluate on the original test set.
+5. **Save Results:** Save the evaluation metrics to `results/results_part3.txt`.
+6. **Compare Results:** Implement a function `compare_models(part1_metrics, part3_metrics)` that calculates the percentage improvement for each metric between the imbalanced model (Part 1) and the balanced model (Part 3). The function should return a dictionary with metric names as keys and improvement percentages as values.
 
 ## Submission
 
-Push your completed notebooks (`part1_introduction.ipynb`, `part2_feature_engineering.ipynb`, `part3_data_preparation.ipynb`) **and the `results/` directory containing your output files** to your GitHub repository. The grading workflow will automatically run the tests against your code. Ensure your functions are correctly named, return the expected outputs, and that the results files are generated correctly.
-
-## Grading
-
-Your assignment will be automatically graded based on tests defined in `.github/tests/test_assignment5.py`. The tests will:
-
-* Check if the required functions exist and run without critical errors (via notebook execution).
-* Check if the results files (`results/results_part1.txt`, etc.) are created.
-* Check if the values within the results files are present and meet expected criteria (e.g., metrics are within valid ranges [0, 1], AUC scores are reasonable).
-
-Passing the automated tests by ensuring your notebooks run and produce the correct results files is the primary requirement for grading. Markdown interpretations are for your learning and understanding but are not directly auto-graded.
+Submit your completed notebooks and the `results/` directory containing your output files.
