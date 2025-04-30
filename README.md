@@ -48,7 +48,7 @@ This assignment is divided into three parts, each corresponding to a Jupyter Not
 3. **Train Model:** Train a Logistic Regression model on the training data.
 4. **Evaluate Model:** Calculate accuracy, precision, recall, F1 score, AUC, and confusion matrix.
 5. **Save Results:** Save the metrics to `results/results_part1.txt`.
-6. **Interpret Results:** Implement a function `interpret_results(metrics)` that analyzes the model performance on imbalanced data. The function should return a dictionary with keys 'best_metric', 'worst_metric', and 'imbalance_impact_score' (a custom score from 0-1 indicating how much the class imbalance affected results).
+6. **Interpret Results:** Implement a function `interpret_results(metrics)` that analyzes the model performance on imbalanced data. The function should return a dictionary with keys 'best_metric', 'worst_metric', and 'imbalance_impact_score' (a custom score from 0-1 indicating how much the class imbalance affected results). Additionally, write your manual interpretation of these results in a file called `RESULTS.md`.
 
 ### Part 2: Time Series Features & Tree-Based Models (`part2_feature_engineering.ipynb`)
 
@@ -60,13 +60,13 @@ This assignment is divided into three parts, each corresponding to a Jupyter Not
 
 ### Part 3: Practical Data Preparation (`part3_data_preparation.ipynb`)
 
-1. **Encode Categorical Features:** Use One-Hot Encoding for the `smoker_status` column.
+1. **Encode Categorical Features:** Use One-Hot Encoding for the `smoker_status` column to transform the categorical variable into numerical features.
 2. **Prepare Data:** Select features (including the one-hot encoded ones) and the target. Split into train/test sets.
 3. **Apply SMOTE:** Oversample the minority class in the training data.
 4. **Retrain and Evaluate:** Train a Logistic Regression model on the balanced data and evaluate on the original test set.
 5. **Save Results:** Save the evaluation metrics to `results/results_part3.txt`.
-6. **Compare Results:** Implement a function `compare_models(part1_metrics, part3_metrics)` that calculates the percentage improvement for each metric between the imbalanced model (Part 1) and the balanced model (Part 3). The function should return a dictionary with metric names as keys and improvement percentages as values.
+6. **Compare Results:** Implement a function `compare_models(part1_metrics, part3_metrics)` that calculates the percentage improvement for each metric between the imbalanced model (Part 1) and the balanced model (Part 3). The function should return a dictionary with metric names as keys and improvement percentages as values. Additionally, write your manual comparison and analysis in the `RESULTS.md` file.
 
 ## Submission
 
-Submit your completed notebooks and the `results/` directory containing your output files.
+Submit your completed notebooks, the `results/` directory containing your output files, and your `RESULTS.md` file with your manual interpretations and analysis.

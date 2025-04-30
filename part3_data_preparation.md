@@ -88,9 +88,10 @@ def prepare_data_part3(df, test_size=0.2, random_state=42):
         X_train, X_test, y_train, y_test
     """
     # YOUR CODE HERE
-    # 1. Split data FIRST
-    # 2. Encode categorical features using training data only
-    # 3. Handle missing values
+    # 1. Encode categorical features using the encode_categorical_features function
+    # 2. Select relevant features (including the one-hot encoded ones) and the target
+    # 3. Split data into training and testing sets
+    # 4. Handle missing values
     
     # Placeholder return - replace with your implementation
     return None, None, None, None

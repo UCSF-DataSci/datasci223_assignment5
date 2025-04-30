@@ -62,10 +62,28 @@ def extract_rolling_features(df, window_size_seconds):
     """
     # YOUR CODE HERE
     # 1. Sort data by timestamp
-    # 2. Set timestamp as index
+    #    df_sorted = df.sort_values('timestamp')
+    
+    # 2. Set timestamp as index (this allows time-based operations)
+    #    df_indexed = df_sorted.set_index('timestamp')
+    
     # 3. Calculate rolling mean and standard deviation
-    # 4. Reset index to bring timestamp back as a column
-    # 5. Handle any NaN values
+    #    - First, create a rolling window object based on time:
+    #      rolling_window = df_indexed['heart_rate'].rolling(window=f'{window_size_seconds}s')
+    #    - Then calculate statistics on this window:
+    #      hr_mean = rolling_window.mean()
+    #      hr_std = rolling_window.std()
+    
+    # 4. Add the new columns back to the dataframe
+    #    df_indexed['hr_rolling_mean'] = hr_mean
+    #    df_indexed['hr_rolling_std'] = hr_std
+    
+    # 5. Reset index to bring timestamp back as a column
+    #    df_result = df_indexed.reset_index()
+    
+    # 6. Handle any NaN values (rolling calculations create NaNs at the beginning)
+    #    - You can use fillna, dropna, or other methods depending on your strategy
+    #    df_result = df_result.fillna(method='bfill')  # Example: backward fill
     
     # Placeholder return - replace with your implementation
     return df.copy()
